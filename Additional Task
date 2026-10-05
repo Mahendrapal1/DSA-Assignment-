@@ -1,0 +1,9 @@
+Answer 1. Additional Task: Analysis & Fixed-Size Behavior
+Time Complexities: PUSH(x): O(1), POP(): O(1), PEEK(): O(1), DISPLAY(): O(n) where n is the number of elements.
+Space Complexity: O(N) total space based on the fixed capacity N.
+Fixed Size Limitation: When the stack reaches its maximum capacity, any attempt to insert another element triggers a Stack Overflow condition. Unless resized dynamically, the program must reject the insertion to prevent memory corruption.
+Answer 2.Circular Queue vs. Linear Queue Analysis
+Memory Utilization: A circular queue uses modulo arithmetic to wrap around the array, successfully reusing empty spaces freed up by past deletions.
+Time Complexity: Both ENQUEUE and DEQUEUE operate in O(1) time.
+Space Complexity: O(N) based on array allocation.
+Linear Queue Problem: In a linear queue, once REAR hits the final index, further insertions are rejected (false overflow) even if elements at the beginning were removed, leaving unused capacity.
