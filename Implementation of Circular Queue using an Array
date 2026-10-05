@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct CircularQueue {
+    int capacity;
+    int front, rear, size;
+    int *array;
+};
+
+// Function to create a circular queue of given capacity
+struct CircularQueue* createQueue(int capacity) {
+    struct CircularQueue *q = (struct CircularQueue*)malloc(sizeof(struct CircularQueue));
+    q->capacity = capacity;
+    q->front = -1;
+    q->rear = -1;
+    q->size = 0;
+    q->array = (int*)malloc(capacity * sizeof(int));
+    return q;
+}
+
+int isFull(struct CircularQueue *q) {
+    return q->size == q->capacity;
+}
+
+int isEmpty(struct CircularQueue *q) {
+    return q->size == 0;
+}
+
+void enqueue(struct CircularQueue *q, int x) {
+    if (isFull(q)) {
+        printf("Queue Overflow! Cannot enqueue: %d\n", x);
+        return;
+    }
+    if (isEmpty(q)) {
+        q->front = 0;
+    }
+    q->rear = (q->rear + 1) % q->capacity;
+    q->array[q->rear] = x;
+    q->size++;
+    printf("Enqueued %d\n", x);
+}
+
+int dequeue(struct CircularQueue *q) {
+    if (isEmpty(q)) {
+        printf("Queue Underflow! Queue is empty.\n");
+        return -1;
+    }
+    int removed = q->array[q->front];
+    q->front = (q->front + 1) % q->capacity;
+    q->size--;
+    if (isEmpty(q)) {
+        q->front = -1;
+        q->rear = -1;
+    }
+    return removed;
+}
+
+int frontElement(struct CircularQueue *q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty.\n");
+        return -1;
+    }
+    return q->array[q->front];
+}
+
+void display(struct CircularQueue *q) {
+    if (isEmpty(q)) {
+        printf("Queue is empty.\n");
+        return;
+    }
+    printf("Queue elements: ");
+    for (int i = 0; i < q->size; i++) {
+        int idx = (q->front + i) % q->capacity;
+        printf("%d ", q->array[idx]);
+    }
+    printf("\n");
+}
